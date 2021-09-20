@@ -1,10 +1,75 @@
-.App {
+
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@500;700&display=swap');
+*{
+  margin:0;
+  box-sizing: border-box;
+  padding: 0;
+  font-family: 'Maven Pro', sans-serif;
+  font-size:1.1rem;
+}
+ul{
+  list-style: none;
+    text-align: initial;
+    margin-block-start: 17px;
+}
+a{
+  text-decoration: none !important;
+  color:rgb(13,58,137)!important;
+  font-size: 1.35rem;
+}
+main {
+  display: flex;
   text-align: center;
+  min-height: 90vh;
+  margin: 4%;
+}
+.imgInfo{
+  width: 260px;
+  height: 260px;
+}
+img, svg {
+  margin: auto;
+  border-radius: 90px;
+}
+.App-logo {
+  height: 40px;
+}
+.body_lists{
+  flex-wrap: wrap;
+  width: 78%;
+  margin: auto;
+  line-height: 2;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.fas{
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+.fa-info-circle{
+  color: rgba(0,201,189,255);
+  
+}
+.fa-trash-alt{
+  color: rgba(15,61,148,255);
+}
+.fa-edit{
+  color: rgba(15,61,148,255);
+}
+
+.color_button{
+  background-color: rgba(15,61,148,255)!important;
+}
+
+.hidden-item{
+  display: block;
+}
+
+.show-item{
+  display: none;
+}
+
+.item-gap{
+  margin-right: 25px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -13,26 +78,33 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (min-width: 992px){
+  .col-lg-2 {
+      width: 25.666667% !important;
   }
-  to {
-    transform: rotate(360deg);
+  .imgInfo{
+    width: 300px;
+    height: 300px;
+  }
+  .hidden-item{
+    display: none !important;
+  }
+  .show-item{
+    display: block;
+  }
+  nav a.nav-link:nth-child(odd) {
+    border-bottom: none;
+  }
+  main{
+    margin:0;
+  }
+}
+@media(min-width:1200px){
+  .App-logo {
+    height: 60px;
+  }
+  .imgInfo{
+    width: 400px;
+    height: 400px;
   }
 }

@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import './components/Navbar/style.css';
+import './components/Footer/style.css';
 import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Inicio from './pages/Inicio';
+import Detalles from './pages/Detalles';
+import Paciente from './pages/Paciente';
+import Odontologico from './pages/Odontologico';
+import Navbar from './components/Navbar/Index';
+import Footer from './components/Footer/Index';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Navbar />
+        <main>
+          <Switch>
+            <Route exact path="/" component={Inicio} />
+            <Route exact path="/pacientes" component={Paciente} />
+            <Route  path="/pacientes/:id"><Detalles name="pacientes" /></Route>
+            <Route exact path="/odontologos" component={Odontologico} />
+            <Route  path="/odontologos/:id"><Detalles name="odontologos" /></Route>
+          </Switch>
+        </main>
+        <Footer />
+      </Router>
+    </>
   );
 }
 
