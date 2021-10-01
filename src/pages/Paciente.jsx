@@ -1,9 +1,9 @@
 import {Table} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {Button} from 'react-bootstrap';
+import {Button,Spinner} from 'react-bootstrap';
 import Modal from '../components/Modal/Index';
-import save from '../assets/js/pacienteSave';
+import postData from '../assets/js/postData';
 export default function Paciente(){
     const history = useHistory();
     const [pacientes,setPacientes] = useState([]);
@@ -31,9 +31,19 @@ export default function Paciente(){
     }
 
     const handleSave = (event)=>{
-        const {nombre,apellido,dni,fechaIngreso,calle,numero,localidad,provincia} = event.target
+        const {nombre,apellido,dni,calle,numero,localidad,provincia} = event.target
         event.preventDefault();
-        save(nombre.value,apellido.value,dni.value,fechaIngreso.value,calle.value,numero.value,localidad.value,provincia.value)
+        const payload={
+            nombre: nombre.value,
+            apellido: apellido.value,
+            dni: dni.value,
+            fechaAlta:null,
+            calle:calle.value,
+            numero:numero.value,
+            localidad:localidad.value,
+            provincia:provincia.value
+        }
+        postData("http://localhost:8081/api/pacientes",payload)
         .then(data=>{       
             getData();
             handleClose(); 
@@ -42,38 +52,42 @@ export default function Paciente(){
 
     return(
         <>
-            {isLoading && <p>Esta cargando...</p>}
+            {isLoading && <Spinner className="m-auto" animation="border" />}
             {!isLoading &&
+                <>
+                <h2 className="color-blue">Pacientes</h2>
                 <div className="body_lists">
-                <Table striped bordered hover className="text-center">
+                <Table bordered  className="text-center">
                     <thead>
-                        <tr>
+                        <tr className="text-white">
                             <th>Nombre</th>
                             <th>Apellido</th>
-                            <th>Fecha de ingreso</th>
+                            <th>Fecha de alta</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {pacientes.map(p =>{
-                            let date = p.fechaIngreso.substring(0, 10);
                             return (
                                 <tr key={p.id}>
                                     <td>{p.nombre}</td>
                                     <td>{p.apellido}</td>
-                                    <td>{date}</td>
+                                    <td>{p?.fechaAlta || <span className="text-danger">Sin asignar</span>}</td>
                                     <td><span onClick={handleDetail}><i value={p.id} class="fas fa-info-circle"></i></span></td>
                                 </tr>
                             )}
                         )}
                     </tbody>
                 </Table>
-
+                <div className="my-5">
+                    {pacientes.length === 0 && <h3 className="text-danger text-center"> No se encontraron resultados </h3>}
+                </div>
                 <Button size="md" onClick={handleShow} className="color_button d-block m-auto" active>
                     Nuevo paciente
                 </Button>
-                {show && <Modal show={show} handleSave={handleSave} handleClose={handleClose} name="paciente" dataObject={Object.keys(pacientes[0])} dataDomicilio={Object.keys(pacientes[0].domicilio)}></Modal>}
+                {show && <Modal show={show} handleSave={handleSave} handleClose={handleClose} name="paciente" dataObject={["nombre","apellido","dni"]} dataDomicilio={["calle","numero","localidad","provincia"]}></Modal>}
                 </div>
+                </>
             }
         </>
     )

@@ -1,8 +1,9 @@
 import {Table} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom'
-import {Button} from 'react-bootstrap';
+import {Button,Spinner} from 'react-bootstrap';
 import Modal from '../components/Modal/Index';
+import postData from '../assets/js/postData';
 export default function Odontologo(){
     const [odontologos,setOdontologos] = useState([]);
     const [isLoading,setIsLoading] = useState(true);
@@ -33,18 +34,12 @@ export default function Odontologo(){
     const handleSave = (event)=>{
         const {nombre,apellido,matricula} = event.target
         event.preventDefault();
-        fetch("http://localhost:8081/api/odontologos",{
-            method: "POST",
-            body: JSON.stringify({
-                nombre: nombre.value,
-                apellido: apellido.value,
-                matricula: matricula.value
-            }),
-            headers: {
-                "Content-type": "application/json"
-            }
-        })
-        .then(response=>response.json())
+        const payload = {
+            nombre: nombre.value,
+            apellido: apellido.value,
+            matricula: matricula.value
+        }
+        postData("http://localhost:8081/api/odontologos",payload)
         .then(data=>{
             getData();
             handleClose();
@@ -53,12 +48,14 @@ export default function Odontologo(){
 
     return(
         <>
-            {isLoading && <p>Esta cargando...</p>}
+            {isLoading && <Spinner className="m-auto" animation="border" />}
             {!isLoading && 
+                <>
+                <h2 className="color-blue">Odontologos</h2>
                 <div className="body_lists">
-                <Table striped bordered hover className="text-center">
+                <Table  bordered className="text-center">
                     <thead>
-                        <tr>
+                        <tr className="text-white">
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Matricula</th>
@@ -78,13 +75,16 @@ export default function Odontologo(){
                         )}
                     </tbody>
                 </Table>
-
+                <div className="my-5">
+                    {odontologos.length === 0 && <h3 className="text-danger text-center"> No se encontraron resultados </h3>}
+                </div>                    
                 <Button size="md" onClick={handleShow} className="color_button d-block m-auto" active>
                     Nuevo odontologo
                 </Button>
 
-                {show && <Modal show={show} handleSave={handleSave} handleClose={handleClose} name="odontologo" dataObject={Object.keys(odontologos[0])}></Modal>}
+                {show && <Modal show={show} handleSave={handleSave} handleClose={handleClose} name="odontologo" dataObject={["nombre","apellido","matricula"]}></Modal>}
                 </div>
+                </>
             }
         </>
     )

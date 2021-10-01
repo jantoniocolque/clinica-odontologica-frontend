@@ -8,8 +8,8 @@ export default function MyModal(props){
     return(
         <Modal show={show} onHide={handleClose}>
             <Form onSubmit={props.handleSave}>
-            <Modal.Header closeButton>
-                <Modal.Title>Nuevo {props.name}</Modal.Title>
+            <Modal.Header  closeButton>
+                <Modal.Title className="color-blue">Nuevo {props.name}</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -19,7 +19,7 @@ export default function MyModal(props){
                             <>
                                 <Row>
                                     <Form.Label column lg={2}>
-                                        <b>{object.charAt(0).toUpperCase()+ object.slice(1)}</b>
+                                        <b className="text-white">{object.charAt(0).toUpperCase()+ object.slice(1)}</b>
                                     </Form.Label>
                                     <Col>
                                         <Form.Control name={object} type="date"/>
@@ -29,37 +29,36 @@ export default function MyModal(props){
                             </>
                             :
                             <>
-                                {object ==="domicilio" && props.dataDomicilio && props.dataDomicilio.map(o=>{
-                                    return(
-                                        o !== "id" &&
-                                        <>
-                                        <Row>
-                                            <Form.Label column lg={2}>
-                                                <b>{o.charAt(0).toUpperCase()+ o.slice(1)}</b>
-                                            </Form.Label>
-                                            <Col>
-                                                <Form.Control name={o} type="text"/>
-                                            </Col>
-                                        </Row>
-                                        <br />
-                                        </>
-                                    )
-                                })}
-                                {object !== "id" && object !== "domicilio" &&
+                                {object !== "id" &&
                                     <>
                                         <Row>
                                             <Form.Label column lg={2}>
-                                                <b>{object.charAt(0).toUpperCase()+ object.slice(1)}</b>
+                                                <b className="text-white">{object.charAt(0).toUpperCase()+ object.slice(1)}</b>
                                             </Form.Label>
                                             <Col>
-                                                <Form.Control name={object} type="text"/>
+                                                <Form.Control name={object === "contraseña"? "contrasenia": object} type={object ==="contraseña"? "password": "text"}/>
                                             </Col>
                                         </Row>
                                         <br />
                                     </>
                                 }
-                               
                             </>
+                    )
+                })}
+                {props.dataDomicilio && props.dataDomicilio.map(o=>{
+                    return(
+                        o !== "id" &&
+                        <>
+                        <Row>
+                            <Form.Label column lg={2}>
+                                <b className="text-white">{o.charAt(0).toUpperCase()+ o.slice(1)}</b>
+                            </Form.Label>
+                            <Col>
+                                <Form.Control name={o} type="text"/>
+                            </Col>
+                        </Row>
+                        <br />
+                        </>
                     )
                 })}
             </>

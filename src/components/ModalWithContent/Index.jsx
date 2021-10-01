@@ -9,7 +9,7 @@ export default function MyModalWithContent(props){
         <Modal show={show} onHide={handleClose}>
             <Form onSubmit={props.handleSave}>
             <Modal.Header closeButton>
-                <Modal.Title>Nuevo {props.name}</Modal.Title>
+                <Modal.Title className="color-blue">Nuevo {props.name}</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -20,38 +20,21 @@ export default function MyModalWithContent(props){
                         <>
                             <Row key={object+i}>
                                 <Form.Label column lg={2}>
-                                    <b>{propertiesObject[i].charAt(0).toUpperCase()+ propertiesObject[i].slice(1)}</b>
+                                    <b className="text-white">{propertiesObject[i].charAt(0).toUpperCase()+ propertiesObject[i].slice(1)}</b>
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control name={propertiesObject[i]} type="date" defaultValue={object.substring(0, 10)}/>
+                                    <Form.Control name={propertiesObject[i]} type="date" defaultValue={object}/>
                                 </Col>
                             </Row>
                             <br />
                         </>
                         :
                         <>
-                            {propertiesObject[i] ==="domicilio" && Object.values(object).map((o,j)=>{
-                                const propertiesObjectOfObject = Object.keys(props.dataObject[propertiesObject[i]]);
-                                return(
-                                    propertiesObjectOfObject[j] !== "id" &&
-                                    <>
-                                    <Row key={object+j}>
-                                        <Form.Label key={object+j+"label"} column lg={2}>
-                                            <b>{propertiesObjectOfObject[j].charAt(0).toUpperCase()+ propertiesObjectOfObject[j].slice(1)}</b>
-                                        </Form.Label>
-                                        <Col>
-                                            <Form.Control key={object+j+"input"} name={propertiesObjectOfObject[j]} type="text" defaultValue={o}/>
-                                        </Col>
-                                    </Row>
-                                    <br />
-                                    </>
-                                )
-                            })}
-                            {propertiesObject[i] !== "id" && propertiesObject[i] !== "domicilio" &&
+                            {propertiesObject[i] !== "id" && !propertiesObject[i].includes("id_") &&
                                 <>
                                     <Row key={object+i+"fila"}>
                                         <Form.Label column lg={2} key={object+i+"label"}>
-                                            <b>{propertiesObject[i].charAt(0).toUpperCase()+ propertiesObject[i].slice(1)}</b>
+                                            <b className="text-white">{propertiesObject[i].charAt(0).toUpperCase()+ propertiesObject[i].slice(1)}</b>
                                         </Form.Label>
                                         <Col>
                                             <Form.Control key={object+i+"input"} name={propertiesObject[i]} type="text" defaultValue={object}/>
