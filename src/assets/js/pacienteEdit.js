@@ -1,5 +1,5 @@
 export default async function edit(id,nombre,apellido,dni,fechaAlta,idDomicilio,calle,numero,localidad,provincia){
-    let response = await fetch(`http://localhost:8081/api/pacientes/`,{
+    let response = await fetch(`https://api-clinica-odontologica.herokuapp.com/api/pacientes/`,{
         method: "PUT",
         body: JSON.stringify({
             id:id,

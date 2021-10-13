@@ -1,5 +1,5 @@
 export default async function edit(id,fecha,hora,id_paciente,id_odontologo){
-    let response = await fetch(`http://localhost:8081/api/turnos/`,{
+    let response = await fetch(`https://api-clinica-odontologica.herokuapp.com/api/turnos/`,{
         method: "PUT",
         body: JSON.stringify({
             id:id,
