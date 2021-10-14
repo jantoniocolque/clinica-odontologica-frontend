@@ -58,7 +58,7 @@ export default function ModalEditTurno(props) {
                                                     <Form.Select name="id_odontologo">
                                                         {
                                                             odontologos.map(o => {
-                                                                return (o.id == object.id) ?
+                                                                return (o.id === object.id) ?
                                                                     <option selected key={o.id} value={o.id}>{o.nombre} {o.apellido}</option>
                                                                     :
                                                                     <option key={o.id} value={o.id}>{o.nombre} {o.apellido}</option>
@@ -80,7 +80,7 @@ export default function ModalEditTurno(props) {
                                                     <Form.Select name="id_paciente">
                                                         {
                                                             pacientes.map(p => {
-                                                                return (p.id == object.id) ?
+                                                                return (p.id === object.id) ?
                                                                     <option selected key={p.id} value={p.id}>{p.nombre} {p.apellido}</option>
                                                                     :
                                                                     <option key={p.id} value={p.id}>{p.nombre} {p.apellido}</option>
@@ -92,7 +92,7 @@ export default function ModalEditTurno(props) {
                                             <br />
                                         </>
                                     }
-                                    {propertiesObject[i] == "hora" &&
+                                    {propertiesObject[i] === "hora" &&
                                         <>
                                             <Row>
                                                 <Form.Label column lg={2}>
