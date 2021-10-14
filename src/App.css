@@ -287,6 +287,15 @@ svg {
   margin: 0 auto;
 }
 
+.contact {
+  flex-direction: column;
+  gap: 45px;
+}
+
+.contact .contact-info {
+  z-index: 2000;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -296,6 +305,11 @@ svg {
 @media (min-width: 992px) {
   .body_lists {
     display: block;
+  }
+
+  .contact {
+    flex-direction: row;
+    gap: 5px;
   }
 
   .home .cards {
